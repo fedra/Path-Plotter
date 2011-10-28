@@ -1,0 +1,20 @@
+Project: Path-Plotter 
+
+die ersten gedanken
+
+wir gehen davon aus dass die Karte(Bild) mit Eingang der ersten Position von Google geholt wird.
+
+Software: Was nötig ist:
+das Bild von Google holen
+dies im Speicher so abzulegen dass zu jedem Pixel die Koordinaten stehen.
+Wenn die neuen Koordinaten nicht den im Speicher vorhandenen entsprechen, dann noch ein Kartenteil dazu holen
+Punkte auf der Karte farblich abbilden 
+aus dem ganzen eine library machen
+wenn die Zeit noch vorhanden ist dann das ganze in ein GUI Packen(QT)
+
+Project: Was nötig ist
+
+eine git repo anlegen (bei GitHub?? nocht vorschläge??)
+ein Lastenheft erstellen
+ein Pflichtenheft erstellen
+Dokumentation erstellen ( den Code so schreiben, dass die Doku zumindest teilweise automatisch erstellt werden kann)
