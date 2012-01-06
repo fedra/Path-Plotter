@@ -598,6 +598,63 @@ namespace svg
         }
     };
 
+    class AnimatedPath : public Shape
+        {
+        public:
+    	AnimatedPath(Point const & start_point, Point const & end_point, int const & beginn, int const & duration)
+                : Shape(Color::Transparent, Stroke(2,Color::Blue)), start_point(start_point),
+                  end_point(end_point) { }
+//    	AnimatedPath(Stroke const & stroke = Stroke()) : Shape(Color::Transparent, stroke) { }
+//            Polygon & operator<<(Point const & point)
+//            {
+//                points.push_back(point);
+//                return *this;
+//            }
+            std::string toString(Layout const & layout) const
+            {
+                std::stringstream ss;
+                ss << elemStart("path");
+
+                ss << "d=\"";
+                std::stringstream  startPoint;
+                std::stringstream  beforePoint;
+                std::stringstream  afterPoint;
+                startPoint << "M " << translateX(start_point.x, layout) << "," << translateY(start_point.y, layout) << " ";
+                ss << startPoint;
+                beforePoint << "L " << translateX(start_point.x, layout) << "," << translateY(start_point.y, layout) << ">";
+                afterPoint << "L " << translateX(end_point.x, layout) << "," << translateY(end_point.y, layout) << ">";
+                ss << beforePoint;
+                ss << elemStart("animate");
+                ss << " attributeType=\"XML\" attributeName=\"d\" fill=\"freeze\" ";
+                ss << "from=\"" << startPoint << " " << beforePoint << "\" ";
+                ss << "to=\"" << startPoint << " " << afterPoint << "\"";
+                ss << "begin=\"" << beginn << "\" ";
+                ss << "dur=\"" << duration << "\"";
+                ss << emptyElemEnd();
+                ss << elemEnd("path");
+//                for (unsigned i = 0; i < points.size(); ++i)
+//                    ss << translateX(points[i].x, layout) << "," << translateY(points[i].y, layout) << " ";
+
+
+//                ss << fill.toString(layout) << stroke.toString(layout) << emptyElemEnd();
+                return ss.str();
+            }
+            void offset(Point const & offset)
+            {
+                start_point.x += offset.x;
+                start_point.y += offset.y;
+
+                end_point.x += offset.x;
+                end_point.y += offset.y;
+            }
+        private:
+                Point start_point;
+                Point end_point;
+                int beginn;
+                int duration;
+        };
+
+
     class Document
     {
     public:

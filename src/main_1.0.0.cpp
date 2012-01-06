@@ -75,6 +75,6 @@ int main()
         << Point(25, 72) << Point(33, 70) << Point(35, 60) << Point(25, 55) << Point(18, 63));
 
     doc << Rectangle(Point(70, 55), 20, 15, Color::Yellow);
-
+    doc << AnimatedPath(Point(0,0), Point(100,100), 1, 5);
     doc.save();
 }
