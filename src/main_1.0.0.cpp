@@ -30,7 +30,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ******************************************************************************/
 
+
+
 #include "../inc/simple_svg_1.0.0.hpp"
+#include "../inc/coordinatesparser.hpp"
 
 using namespace svg;
 
@@ -77,4 +80,8 @@ int main()
     doc << Rectangle(Point(70, 55), 20, 15, Color::Yellow);
     doc << AnimatedPath(Point(0,0), Point(100,100), 1, 5);
     doc.save();
+
+    CoordinatesParser myparser("data.txt");
+    myparser.ReadData();
+
 }
