@@ -601,9 +601,13 @@ namespace svg
     class AnimatedPath : public Shape
         {
         public:
-    	AnimatedPath(Point const & start_point, Point const & end_point, int const & beginn, int const & duration)
-                : Shape(Color::Transparent, Stroke(2,Color::Blue)), start_point(start_point),
-                  end_point(end_point) { }
+    	AnimatedPath(Point const & start_point, Point const & end_point, int const & beginn, int const & duration,
+    				Stroke const & stroke = Stroke())
+    	                : Shape(Color::Transparent, stroke), start_point(start_point), end_point(end_point), beginn(beginn), duration(duration) { }
+
+//    	AnimatedPath(Point const & start_point, Point const & end_point, int const & beginn, int const & duration,
+//    			Fill const & fill = Fill(), Stroke const & stroke = Stroke())
+//                : Shape(fill, stroke), start_point(start_point), end_point(end_point), beginn(beginn), duration(duration) { }
 //    	AnimatedPath(Stroke const & stroke = Stroke()) : Shape(Color::Transparent, stroke) { }
 //            Polygon & operator<<(Point const & point)
 //            {
@@ -620,16 +624,16 @@ namespace svg
                 std::stringstream  beforePoint;
                 std::stringstream  afterPoint;
                 startPoint << "M " << translateX(start_point.x, layout) << "," << translateY(start_point.y, layout) << " ";
-                ss << startPoint;
-                beforePoint << "L " << translateX(start_point.x, layout) << "," << translateY(start_point.y, layout) << ">";
-                afterPoint << "L " << translateX(end_point.x, layout) << "," << translateY(end_point.y, layout) << ">";
-                ss << beforePoint;
+                ss << startPoint.str();
+                beforePoint << "L " << translateX(start_point.x, layout) << "," << translateY(start_point.y, layout) << "\"";
+                afterPoint << "L " << translateX(end_point.x, layout) << "," << translateY(end_point.y, layout) << "\"";
+                ss << beforePoint.str() << " "<< fill.toString(layout) << stroke.toString(layout)<< ">";
                 ss << elemStart("animate");
                 ss << " attributeType=\"XML\" attributeName=\"d\" fill=\"freeze\" ";
-                ss << "from=\"" << startPoint << " " << beforePoint << "\" ";
-                ss << "to=\"" << startPoint << " " << afterPoint << "\"";
-                ss << "begin=\"" << beginn << "\" ";
-                ss << "dur=\"" << duration << "\"";
+                ss << "from=\"" << startPoint.str() << " " << beforePoint.str() << " ";
+                ss << "to=\"" << startPoint.str() << " " << afterPoint.str() << "";
+                ss << " begin=\"" << beginn << "\" ";
+                ss << "dur=\"" <<  duration << "\"";
                 ss << emptyElemEnd();
                 ss << elemEnd("path");
 //                for (unsigned i = 0; i < points.size(); ++i)
